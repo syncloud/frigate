@@ -21,19 +21,6 @@ local build(arch, test_ui, dind) = [{
             ]
         },
       {
-            name: "nginx",
-            image: "docker:" + dind,
-                commands: [
-                "./nginx/build.sh " + nginx
-            ],
-            volumes: [
-                {
-                    name: "dockersock",
-                    path: "/var/run"
-                }
-            ]
-        },
-      {
             name: "authelia",
             image: "docker:" + dind,
             commands: [
@@ -50,7 +37,7 @@ local build(arch, test_ui, dind) = [{
             name: "frigate",
             image: "ghcr.io/blakeblackshear/frigate:0.13.0-rc1",
             commands: [
-                "./frigate/build.sh " + version + " " + arch
+                "./frigate/build.sh"
             ],
             volumes: [
                 {
