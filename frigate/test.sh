@@ -4,4 +4,5 @@ DIR=$( cd "$( dirname "$0" )" && pwd )
 cd ${DIR}
 VERSION=$1
 BUILD_DIR=${DIR}/../build/snap/frigate
-${BUILD_DIR}/bin/frigate.sh --help
+cd $BUILD_DIR/opt/frigate
+${BUILD_DIR}bin/python.sh -u -m frigate --help
