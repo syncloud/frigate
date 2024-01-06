@@ -5,7 +5,8 @@ cd ${DIR}
 VERSION=$1
 BUILD_DIR=${DIR}/../build/snap/frigate
 mkdir $BUILD_DIR
-cp -r /opt ${BUILD_DIR}/opt
-cp -r /usr ${BUILD_DIR}/usr
-cp -r /bin ${BUILD_DIR}/bin
+cp -r /opt ${BUILD_DIR}
+cp -r /usr ${BUILD_DIR}
+cp -r /bin ${BUILD_DIR}
+cp -r /lib ${BUILD_DIR}
 cp -r ${DIR}/bin/* ${BUILD_DIR}/bin
