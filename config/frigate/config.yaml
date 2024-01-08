@@ -1,3 +1,5 @@
+model:
+  labelmap_path: /snap/frigate/current/frigate/opt/frigate/labelmap.txt
 mqtt:
   enabled: False
   host: localhost
