@@ -26,3 +26,4 @@ detectors:
     num_threads: 3
     model:
       path: "/snap/frigate/current/frigate/cpu_model.tflite"
+      labelmap_path: /snap/frigate/current/frigate/labelmap.txt
