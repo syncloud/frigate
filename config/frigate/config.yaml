@@ -8,7 +8,7 @@ cameras:
     ffmpeg:
       inputs:
         - input_args: "-re -stream_loop -1 -fflags +genpts"
-          path: /snap/feigate/current/frigate/black.mp4
+          path: /snap/frigate/current/frigate/black.mp4
           roles:
             - rtmp
             - record
@@ -20,3 +20,9 @@ cameras:
       enabled: False
     record:
       enabled: False
+detectors:
+  cpu1:
+    type: cpu
+    num_threads: 3
+    model:
+      path: "/snap/frigate/current/frigate/cpu_model.tflite"
