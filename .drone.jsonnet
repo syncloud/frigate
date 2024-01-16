@@ -20,6 +20,19 @@ local build(arch, test_ui, dind) = [{
                 "echo $DRONE_BUILD_NUMBER > version"
             ]
         },
+              {
+                    name: "nginx",
+                    image: "docker:" + dind,
+                        commands: [
+                        "./nginx/build.sh " + nginx
+                    ],
+                    volumes: [
+                        {
+                            name: "dockersock",
+                            path: "/var/run"
+                        }
+                    ]
+                },
       {
             name: "authelia",
             image: "docker:" + dind,
