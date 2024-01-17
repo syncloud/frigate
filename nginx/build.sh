@@ -13,12 +13,22 @@ wget https://github.com/kaltura/nginx-vod-module/archive/refs/tags/$VOD_VERSION.
 tar xf $VOD_VERSION.tar.gz
 ls -la ${DIR}/nginx-vod-module-$VOD_VERSION
 
+wget https://github.com/kaltura/nginx-secure-token-module/archive/refs/tags/1.5.tar.gz
+tar xf 1.5.tar.gz
+ls -la nginx-secure-token-module-1.5
+
+wget https://github.com/arut/nginx-rtmp-module/archive/refs/tags/v1.2.2.tar.gz
+tar xf v1.2.2.tar.gz
+ls -la nginx-rtmp-module-v1.2.2
+
 wget http://nginx.org/download/nginx-$VERSION.tar.gz
 tar xf nginx-$VERSION.tar.gz
 cd nginx-$VERSION
 PREFIX=/snap/$APP/current/nginx
 ./configure \
   --add-module=${DIR}/nginx-vod-module-$VOD_VERSION \
+  --add-module=../nginx-secure-token-module-1.5 \
+  --add-module=../nginx-rtmp-module-v1.2.2 \
   --prefix=$PREFIX \
   --with-compat \
   --with-file-aio \
@@ -43,7 +53,8 @@ PREFIX=/snap/$APP/current/nginx
   --with-stream \
   --with-stream_realip_module \
   --with-stream_ssl_module \
-  --with-stream_ssl_preread_module
+  --with-stream_ssl_preread_module \
+  --with-cc-opt='-O3 -Wno-error=implicit-fallthrough'
 #  --with-cc-opt='-g -O2 -ffile-prefix-map=/data/builder/debuild/nginx-1.24.0/debian/debuild-base/nginx-1.24.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' \
 #  --with-ld-opt='-Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie'
 make
