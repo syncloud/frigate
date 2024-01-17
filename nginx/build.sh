@@ -8,12 +8,12 @@ VOD_VERSION=1.32
 
 SNAP_DIR=${DIR}/../build/snap
 apt update
-apt install -y build-essential gcc curl
-curl -O https://github.com/kaltura/nginx-vod-module/archive/refs/tags/$VOD_VERSION.tar.gz
+apt install -y build-essential gcc wget
+wget https://github.com/kaltura/nginx-vod-module/archive/refs/tags/$VOD_VERSION.tar.gz
 tar xf $VOD_VERSION.tar.gz
 ls -la ${DIR}/nginx-vod-module-$VOD_VERSION
 
-curl -O http://nginx.org/download/nginx-$VERSION.tar.gz
+wget http://nginx.org/download/nginx-$VERSION.tar.gz
 tar xf nginx-$VERSION.tar.gz
 cd nginx-$VERSION
 PREFIX=/snap/$APP/current/nginx
@@ -48,7 +48,7 @@ PREFIX=/snap/$APP/current/nginx
 #  --with-ld-opt='-Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie'
 make
 make install
-apt remove --purge -y build-essential gcc curl
+apt remove --purge -y build-essential gcc wget
 mkdir -p $SNAP_DIR
 cp -r $PREFIX $SNAP_DIR
 cp -r /lib $SNAP_DIR
