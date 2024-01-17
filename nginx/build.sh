@@ -51,7 +51,7 @@ make install
 apt remove --purge -y build-essential gcc wget
 mkdir -p $SNAP_DIR
 cp -r $PREFIX $SNAP_DIR
-cp -r /lib $SNAP_DIR
-cp -r /usr/lib $SNAP_DIR
+cp -r /lib $SNAP_DIR/nginx
+cp -r /usr/lib $SNAP_DIR/nginx
 mkdir $SNAP_DIR/nginx/bin
 cp ${DIR}/nginx.sh $SNAP_DIR/nginx/bin
