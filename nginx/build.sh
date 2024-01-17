@@ -8,7 +8,7 @@ VOD_VERSION=1.32
 
 SNAP_DIR=${DIR}/../build/snap
 apt update
-apt install -y build-essential gcc wget libpcre3-dev
+apt install -y build-essential gcc wget libpcre3-dev libssl-dev
 wget https://github.com/kaltura/nginx-vod-module/archive/refs/tags/$VOD_VERSION.tar.gz
 tar xf $VOD_VERSION.tar.gz
 ls -la ${DIR}/nginx-vod-module-$VOD_VERSION
