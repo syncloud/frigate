@@ -17,8 +17,8 @@ sed -i 's#/opt/frigate/frigate#/snap/frigate/current/frigate/frigate#' frigate/o
 sed -i 's#/opt/frigate/frigate#/snap/frigate/current/frigate/frigate#' frigate/http.py
 
 #hack fix spawn "TypeError: cannot pickle 'weakref' object"
-sed -i 's/self.camera_metrics[name]["process"] = camera_process/#self.camera_metrics[name]["process"] = camera_process/g' frigate/app.py
-sed -i 's/self.camera_metrics[name]["capture_process"] = capture_process/#self.camera_metrics[name]["capture_process"] = capture_process/g' frigate/app.py
+sed -i 's/self.camera_metrics\[name\]\["process"\] = .*/#/g' frigate/app.py
+sed -i 's/self.camera_metrics\[name\]\["capture_process"\] = .*/#/g' frigate/app.py
 
 grep camera_process frigate/app.py
 grep capture_process frigate/app.py
