@@ -19,7 +19,7 @@ ls -la nginx-secure-token-module-1.5
 
 wget https://github.com/arut/nginx-rtmp-module/archive/refs/tags/v1.2.2.tar.gz
 tar xf v1.2.2.tar.gz
-ls -la nginx-rtmp-module-v1.2.2
+ls -la nginx-rtmp-module-1.2.2
 
 wget http://nginx.org/download/nginx-$VERSION.tar.gz
 tar xf nginx-$VERSION.tar.gz
@@ -28,7 +28,7 @@ PREFIX=/snap/$APP/current/nginx
 ./configure \
   --add-module=${DIR}/nginx-vod-module-$VOD_VERSION \
   --add-module=../nginx-secure-token-module-1.5 \
-  --add-module=../nginx-rtmp-module-v1.2.2 \
+  --add-module=../nginx-rtmp-module-1.2.2 \
   --prefix=$PREFIX \
   --with-compat \
   --with-file-aio \
