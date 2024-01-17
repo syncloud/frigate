@@ -53,4 +53,5 @@ mkdir -p $SNAP_DIR
 cp -r $PREFIX $SNAP_DIR
 cp -r /lib $SNAP_DIR
 cp -r /usr/lib $SNAP_DIR
-cp ${DIR}/nginx.sh ${BUILD_DIR}/bin/
+mkdir $SNAP_DIR/nginx/bin
+cp ${DIR}/nginx.sh $SNAP_DIR/nginx/bin
