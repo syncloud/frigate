@@ -20,6 +20,8 @@ sed -i 's#/opt/frigate/frigate#/snap/frigate/current/frigate/frigate#' frigate/h
 sed -i 's/self.camera_metrics\[name\]\["process"\] = .*/#/g' frigate/app.py
 sed -i 's/self.camera_metrics\[name\]\["capture_process"\] = .*/#/g' frigate/app.py
 
+sed -i 's#host="127.0.0.1", port=5001#host="/var/snap/frigate/current/api.socket"#g' frigate/app.py
+
 grep camera_process frigate/app.py
 grep capture_process frigate/app.py
 
