@@ -33,6 +33,13 @@ local build(arch, test_ui, dind) = [{
                         }
                     ]
                 },
+              {
+                    name: "nginx test",
+                    image: "debian:buster-slim",
+                        commands: [
+                        "./nginx/test.sh"
+                    ]
+                },
       {
             name: "authelia",
             image: "docker:" + dind,
