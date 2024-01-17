@@ -22,9 +22,9 @@ local build(arch, test_ui, dind) = [{
         },
               {
                     name: "nginx",
-                    image: "docker:" + dind,
+                    image: "debian:buster-slim",
                         commands: [
-                        "./nginx/build.sh " + nginx
+                        "./nginx/build.sh " + name + " " + nginx
                     ],
                     volumes: [
                         {
