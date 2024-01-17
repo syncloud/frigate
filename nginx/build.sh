@@ -14,3 +14,4 @@ docker export nginx -o app.tar
 tar xf app.tar
 rm -rf app.tar
 cp ${DIR}/nginx.sh ${BUILD_DIR}/bin/
+${BUILD_DIR}/bin/nginx.sh -V
