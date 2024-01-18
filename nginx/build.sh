@@ -30,6 +30,7 @@ PREFIX=/snap/$APP/current/nginx
   --add-module=../nginx-secure-token-module-1.5 \
   --add-module=../nginx-rtmp-module-1.2.2 \
   --prefix=$PREFIX \
+  --http-log-path=/var/snap/$APP/common/log \
   --with-compat \
   --with-file-aio \
   --with-threads \
