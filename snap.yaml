@@ -1,6 +1,6 @@
 apps:
   nginx:
-    user: frigate
+#    user: root
     command: bin/service.nginx.sh
     daemon: simple
     plugs:
