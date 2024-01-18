@@ -13,8 +13,8 @@ sed -i '1s#^#import multiprocessing \n#' frigate/__main__.py
 sed -i '2s#^#multiprocessing.set_start_method("spawn") \n#' frigate/__main__.py
 sed -i '3s#^#multiprocessing.set_executable("/snap/frigate/current/frigate/bin/python.sh") \n#' frigate/__main__.py
 head frigate/__main__.py
-sed -i 's#/opt/frigate/frigate#/snap/frigate/current/frigate/frigate#' frigate/output.py
-sed -i 's#/opt/frigate/frigate#/snap/frigate/current/frigate/frigate#' frigate/http.py
+sed -i 's#/opt/frigate/frigate#/snap/frigate/current/frigate/opt/frigate#' frigate/output.py
+sed -i 's#/opt/frigate/frigate#/snap/frigate/current/frigate/opt/frigate#' frigate/http.py
 
 #hack fix spawn "TypeError: cannot pickle 'weakref' object"
 sed -i 's/self.camera_metrics\[name\]\["process"\] = .*/#/g' frigate/app.py
@@ -24,7 +24,6 @@ sed -i 's#host="127.0.0.1", port=5001#host="unix:///var/snap/frigate/current/api
 
 grep camera_process frigate/app.py
 grep capture_process frigate/app.py
-
 
 cp -r /opt ${BUILD_DIR}
 cp -r /usr ${BUILD_DIR}
