@@ -1,6 +1,6 @@
 apps:
   nginx:
-    user: frigate
+#    user: frigate
     command: bin/service.nginx.sh
     daemon: simple
     plugs:
@@ -8,7 +8,7 @@ apps:
     - network-bind
     restart-condition: always
   authelia:
-    user: frigate
+#    user: frigate
     command: bin/service.authelia.sh
     daemon: simple
     plugs:
@@ -16,7 +16,7 @@ apps:
     - network-bind
     restart-condition: always
   daemon:
-    user: frigate
+#    user: frigate
     command: bin/service.frigate.sh
     daemon: simple
     plugs:
