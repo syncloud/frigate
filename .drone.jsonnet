@@ -55,7 +55,7 @@ local build(arch, test_ui, dind) = [{
         },
         {
             name: "frigate",
-            image: "ghcr.io/blakeblackshear/frigate:0.12.1",
+            image: "ghcr.io/blakeblackshear/frigate:0.13.0-rc1",
             commands: [
                 "./frigate/build.sh"
             ],
