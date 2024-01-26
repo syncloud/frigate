@@ -1,5 +1,3 @@
-model:
-  labelmap_path: /snap/frigate/current/frigate/labelmap.txt
 mqtt:
   enabled: False
   host: localhost
@@ -24,6 +22,3 @@ detectors:
   cpu1:
     type: cpu
     num_threads: 3
-    model:
-      path: "/snap/frigate/current/frigate/cpu_model.tflite"
-      labelmap_path: /snap/frigate/current/frigate/labelmap.txt
