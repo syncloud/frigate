@@ -23,7 +23,7 @@ sed -i 's/self.camera_metrics\[name\]\["capture_process"\] = .*/#/g' frigate/app
 sed -i 's#host="127.0.0.1", port=5001#host="unix:///var/snap/frigate/current/api.socket"#g' frigate/app.py
 
 sed -i 's#"/labelmap.txt"#"/snap/frigate/current/frigate/labelmap.txt"#g' frigate/detectors/detector_config.py
-sed -i 's#"/cpu_model.tflite"#"/snap/frigate/current/frigate/cpu_model.tflite"#g' frigate/detectors/plugins/cpu_tfl.py
+sed -i 's#"/cpu_model.tflite"#"/snap/frigate/current/frigate/cpu_model.tflite"#g' frigate/config.py
 
 grep camera_process frigate/app.py
 grep capture_process frigate/app.py
