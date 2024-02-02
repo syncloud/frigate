@@ -717,7 +717,7 @@ class FrigateApp:
         signal.signal(signal.SIGTERM, receiveSignal)
 
         try:
-            self.flask_app.run(host="unix:///var/snap/frigate/current/api.socket, debug=False, threaded=True)
+            self.flask_app.run(host="unix:///var/snap/frigate/current/api.socket", debug=False, threaded=True)
         except KeyboardInterrupt:
             pass
 
