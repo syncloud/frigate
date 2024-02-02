@@ -16,12 +16,12 @@ head frigate/__main__.py
 sed -i 's#/opt/frigate/frigate#/snap/frigate/current/frigate/opt/frigate#' frigate/output.py
 sed -i 's#/opt/frigate/frigate#/snap/frigate/current/frigate/opt/frigate#' frigate/http.py
 
-sed -i 's#host="127.0.0.1", port=5001#host="unix:///var/snap/frigate/current/api.socket"#g' frigate/app.py
 
 sed -i 's#"/labelmap.txt"#"/snap/frigate/current/frigate/labelmap.txt"#g' frigate/detectors/detector_config.py
 sed -i 's#"/cpu_model.tflite"#"/snap/frigate/current/frigate/cpu_model.tflite"#g' frigate/config.py
 
-#hack fix spawn "TypeError: cannot pickle 'weakref' object"
+#hacks
+#sed -i 's#host="127.0.0.1", port=5001#host="unix:///var/snap/frigate/current/api.socket"#g' frigate/app.py
 #sed -i 's/self.camera_metrics\[name\]\["process"\] = .*/#/g' frigate/app.py
 #sed -i 's/self.camera_metrics\[name\]\["capture_process"\] = .*/#/g' frigate/app.py
 cp $DIR/hack/app.py frigate/app.py
