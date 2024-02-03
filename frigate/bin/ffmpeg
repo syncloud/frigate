@@ -5,4 +5,6 @@ LIBS=$LIBS:$(echo ${DIR}/usr/lib/*-linux-gnu*)
 LIBS=$LIBS:$(echo ${DIR}/usr/lib/*-linux-gnu*/pulseaudio)
 LIBS=$LIBS:$(echo ${DIR}/usr/lib/*-linux-gnu*/blas)
 LIBS=$LIBS:$(echo ${DIR}/usr/lib/*-linux-gnu*/lapack)
-exec ${DIR}/lib/*-linux*/ld-*.so.* --library-path $LIBS ${DIR}/usr/bin/ffmpeg "$@" 2>&1 | tee /var/snap/frigate/current/ffmpeg-`date  +%s%N`.log
+log=/var/snap/frigate/current/ffmpeg-`date  +%s%N`.log
+echo "$@" > $log
+exec ${DIR}/lib/*-linux*/ld-*.so.* --library-path $LIBS ${DIR}/usr/bin/ffmpeg "$@" 2>&1 | tee $log
