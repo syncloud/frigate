@@ -1,6 +1,6 @@
 local name = "frigate";
 local browser = "firefox";
-local version = "4.0.5";
+local version = "0.13.1";
 local nginx = "1.24.0";
 local authelia = "master";
 
@@ -55,9 +55,22 @@ local build(arch, test_ui, dind) = [{
         },
         {
             name: "frigate",
-            image: "ghcr.io/blakeblackshear/frigate:0.13.0-rc1",
+            image: "ghcr.io/blakeblackshear/frigate:" + version,
             commands: [
                 "./frigate/build.sh"
+            ],
+            volumes: [
+                {
+                    name: "dockersock",
+                    path: "/var/run"
+                }
+            ]
+        },
+        {
+            name: "frigate patch",
+            image: "debian:buster-slim",
+            commands: [
+                "./frigate/patch.sh " + version
             ],
             volumes: [
                 {
