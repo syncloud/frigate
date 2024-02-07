@@ -68,7 +68,7 @@ local build(arch, test_ui, dind) = [{
         },
         {
             name: "frigate patch",
-            image: "debian:buster-slim",
+            image: "alpine:3",
             commands: [
                 "./frigate/patch.sh " + version
             ],
