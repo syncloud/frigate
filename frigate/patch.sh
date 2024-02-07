@@ -7,5 +7,5 @@ BUILD_DIR=${DIR}/../build/snap/frigate
 apk add patch
 
 wget https://github.com/blakeblackshear/frigate/compare/v$VERSION...cyberb:frigate:v$VERSION-fix.patch -O $DIR/fix.patch
-cd $BUILD_DIR/opt/frigate/frigate
+cd $BUILD_DIR/opt/frigate
 patch -p0 < $DIR/fix.patch
