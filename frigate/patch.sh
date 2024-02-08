@@ -8,4 +8,4 @@ apk add patch
 
 wget https://github.com/blakeblackshear/frigate/compare/v$VERSION...cyberb:frigate:v$VERSION-fix.patch -O $DIR/fix.patch
 cd $BUILD_DIR/opt/frigate
-patch -p0 < $DIR/fix.patch
+patch -p2 < $DIR/fix.patch
