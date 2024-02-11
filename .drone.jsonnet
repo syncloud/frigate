@@ -4,7 +4,7 @@ local version = "0.13.1";
 local nginx = "1.24.0";
 local authelia = "master";
 
-local build(arch, test_ui, dind) = [{
+local build(arch, test_ui, dind, tag) = [{
     kind: "pipeline",
     type: "docker",
     name: arch,
@@ -55,7 +55,7 @@ local build(arch, test_ui, dind) = [{
         },
         {
             name: "frigate",
-            image: "ghcr.io/blakeblackshear/frigate:" + version,
+            image: "ghcr.io/blakeblackshear/frigate:" + version + tag,
             commands: [
                 "./frigate/build.sh"
             ],
@@ -310,5 +310,5 @@ local build(arch, test_ui, dind) = [{
       }
   }];
 
-build("amd64", true, "20.10.21-dind") +
-build("arm64", false, "20.10.21-dind")
+build("amd64", true, "20.10.21-dind", "") +
+build("arm64", false, "20.10.21-dind", "-standard-arm64")
