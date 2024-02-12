@@ -41,7 +41,7 @@ def test_login(selenium, device_user, device_password):
 
 def test_storage(selenium, device_user, device_password):
     
-    selenium.find_by(By.XPATH, "//div[@text()='Storage']").click()
+    selenium.find_by(By.XPATH, "//div[contains(.,'Storage')]").click()
     selenium.find_by(By.XPATH, "//div[contains(.,'Total')]")
     selenium.screenshot('storage')
 
