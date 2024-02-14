@@ -1,10 +1,8 @@
 import pytest
 from os.path import dirname, join
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from subprocess import check_output
 from syncloudlib.integration.hosts import add_host_alias
-from selenium.webdriver.support import expected_conditions as EC
 
 DIR = dirname(__file__)
 TMP_DIR = '/tmp/syncloud/ui'
@@ -40,8 +38,8 @@ def test_login(selenium, device_user, device_password):
 
 
 def test_storage(selenium, device_user, device_password):
-    
-    selenium.find_by(By.XPATH, "//a[contains(@text(),'Storage')]").click()
+
+    selenium.find_by(By.XPATH, "//a[contains(.,'Storage')]").click()
     selenium.find_by(By.XPATH, "//div[contains(.,'Total')]")
     selenium.screenshot('storage')
 
