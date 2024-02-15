@@ -1,10 +1,11 @@
 local name = "frigate";
 local browser = "firefox";
-local version = "4.0.5";
+local version = "0.13.1";
 local nginx = "1.24.0";
 local authelia = "master";
+local deployer = "https://github.com/syncloud/store/releases/download/4/syncloud-release";
 
-local build(arch, test_ui, dind) = [{
+local build(arch, test_ui, dind, tag) = [{
     kind: "pipeline",
     type: "docker",
     name: arch,
@@ -20,6 +21,26 @@ local build(arch, test_ui, dind) = [{
                 "echo $DRONE_BUILD_NUMBER > version"
             ]
         },
+              {
+                    name: "nginx",
+                    image: "debian:buster-slim",
+                        commands: [
+                        "./nginx/build.sh " + name + " " + nginx
+                    ],
+                    volumes: [
+                        {
+                            name: "dockersock",
+                            path: "/var/run"
+                        }
+                    ]
+                },
+              {
+                    name: "nginx test",
+                    image: "debian:buster-slim",
+                        commands: [
+                        "./nginx/test.sh"
+                    ]
+                },
       {
             name: "authelia",
             image: "docker:" + dind,
@@ -35,9 +56,22 @@ local build(arch, test_ui, dind) = [{
         },
         {
             name: "frigate",
-            image: "ghcr.io/blakeblackshear/frigate:0.13.0-rc1",
+            image: "ghcr.io/blakeblackshear/frigate:" + version + tag,
             commands: [
                 "./frigate/build.sh"
+            ],
+            volumes: [
+                {
+                    name: "dockersock",
+                    path: "/var/run"
+                }
+            ]
+        },
+        {
+            name: "frigate patch",
+            image: "alpine:3",
+            commands: [
+                "./frigate/patch.sh " + version
             ],
             volumes: [
                 {
@@ -74,7 +108,7 @@ local build(arch, test_ui, dind) = [{
             ]
         },
         {
-            name: "test-integration",
+            name: "test",
             image: "python:3.8-slim-buster",
             commands: [
               "APP_ARCHIVE_PATH=$(realpath $(cat package.name))",
@@ -128,7 +162,7 @@ local build(arch, test_ui, dind) = [{
         ]
     },
         {
-            name: "upload",
+        name: "upload",
         image: "debian:buster-slim",
         environment: {
             AWS_ACCESS_KEY_ID: {
@@ -136,20 +170,48 @@ local build(arch, test_ui, dind) = [{
             },
             AWS_SECRET_ACCESS_KEY: {
                 from_secret: "AWS_SECRET_ACCESS_KEY"
-            }
+            },
+            SYNCLOUD_TOKEN: {
+                     from_secret: "SYNCLOUD_TOKEN"
+                 }
         },
         commands: [
-          "PACKAGE=$(cat package.name)",
-          "apt update && apt install -y wget",
-          "wget https://github.com/syncloud/snapd/releases/download/1/syncloud-release-" + arch,
-          "chmod +x syncloud-release-*",
-          "./syncloud-release-* publish -f $PACKAGE -b $DRONE_BRANCH"
-         ],
+            "PACKAGE=$(cat package.name)",
+            "apt update && apt install -y wget",
+            "wget " + deployer + "-" + arch + " -O release --progress=dot:giga",
+            "chmod +x release",
+            "./release publish -f $PACKAGE -b $DRONE_BRANCH"
+        ],
         when: {
             branch: ["stable", "master"],
-            event: [ "push" ]
-        }
-        }] + [
+	    event: [ "push" ]
+}
+    },
+    {
+            name: "promote",
+            image: "debian:buster-slim",
+            environment: {
+                AWS_ACCESS_KEY_ID: {
+                    from_secret: "AWS_ACCESS_KEY_ID"
+                },
+                AWS_SECRET_ACCESS_KEY: {
+                    from_secret: "AWS_SECRET_ACCESS_KEY"
+                },
+                 SYNCLOUD_TOKEN: {
+                     from_secret: "SYNCLOUD_TOKEN"
+                 }
+            },
+            commands: [
+              "apt update && apt install -y wget",
+              "wget " + deployer + "-" + arch + " -O release --progress=dot:giga",
+              "chmod +x release",
+              "./release promote -n " + name + " -a $(dpkg --print-architecture)"
+            ],
+            when: {
+                branch: ["stable"],
+                event: ["push"]
+            }
+      },
         {
             name: "artifact",
             image: "appleboy/drone-scp:1.6.4",
@@ -241,41 +303,7 @@ local build(arch, test_ui, dind) = [{
             temp: {}
         },
       ]
-},
- {
-      kind: "pipeline",
-      type: "docker",
-      name: "promote-" + arch,
-      platform: {
-          os: "linux",
-          arch: arch
-      },
-      steps: [
-      {
-              name: "promote",
-              image: "debian:buster-slim",
-              environment: {
-                  AWS_ACCESS_KEY_ID: {
-                      from_secret: "AWS_ACCESS_KEY_ID"
-                  },
-                  AWS_SECRET_ACCESS_KEY: {
-                      from_secret: "AWS_SECRET_ACCESS_KEY"
-                  }
-              },
-              commands: [
-                "apt update && apt install -y wget",
-                "wget https://github.com/syncloud/snapd/releases/download/1/syncloud-release-" + arch + " -O release --progress=dot:giga",
-                "chmod +x release",
-                "./release promote -n " + name + " -a $(dpkg --print-architecture)"
-              ]
-        }
-       ],
-       trigger: {
-        event: [
-          "promote"
-        ]
-      }
-  }];
+}];
 
-build("amd64", true, "20.10.21-dind") +
-build("arm64", false, "20.10.21-dind")
+build("amd64", true, "20.10.21-dind", "") +
+build("arm64", false, "20.10.21-dind", "-standard-arm64")

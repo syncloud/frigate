@@ -109,10 +109,6 @@ func (i *Installer) StorageChange() error {
 	if err != nil {
 		return err
 	}
-	err = linux.Chown(storageDir, App)
-	if err != nil {
-		return err
-	}
 
 	err = os.Mkdir(path.Join(storageDir, "media"), 0755)
 	if err != nil {
@@ -125,6 +121,10 @@ func (i *Installer) StorageChange() error {
 		if !os.IsExist(err) {
 			return err
 		}
+	}
+	err = linux.Chown(storageDir, App)
+	if err != nil {
+		return err
 	}
 
 	return nil

@@ -31,6 +31,10 @@ def module_setup(request, device, app_dir, artifact_dir):
         device.run_ssh('ls -la /var/snap/frigate > {0}/var.snap.ls.log'.format(TMP_DIR), throw=False)
         device.run_ssh('ls -la /var/snap/frigate/current/ > {0}/var.snap.current.ls.log'.format(TMP_DIR),
                        throw=False)
+        device.run_ssh('ls -la /var/snap/frigate/current/config/ > {0}/var.snap.current.config.ls.log'.format(TMP_DIR),
+                       throw=False)
+        device.run_ssh('ls -la /var/snap/frigate/current/config/frigate > {0}/var.snap.current.config.frigate.ls.log'.format(TMP_DIR),
+                       throw=False)
         device.run_ssh('ls -la /var/snap/frigate/common > {0}/var.snap.common.ls.log'.format(TMP_DIR),
                        throw=False)
         device.run_ssh('ls -la /data > {0}/data.ls.log'.format(TMP_DIR), throw=False)
