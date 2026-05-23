@@ -40,7 +40,7 @@ apps:
     command: bin/cli restore-post-start
 
 confinement: strict
-description: frigate
+description: NVR With Realtime Object Detection for IP Cameras
 grade: stable
 name: frigate
-summary: Frigate
+summary: Frigate NVR
