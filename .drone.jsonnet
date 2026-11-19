@@ -1,7 +1,7 @@
 local name = "frigate";
 local browser = "firefox";
 local version = "0.13.1";
-local nginx = "1.24.0";
+local nginx = "1.30.7";
 local authelia = "master";
 local store_publisher = "stable-346";
 
